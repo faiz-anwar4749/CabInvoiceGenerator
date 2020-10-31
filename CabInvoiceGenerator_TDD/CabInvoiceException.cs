@@ -9,7 +9,8 @@ namespace CabInvoiceGenerator_TDD
         {
             INVALID_DISTANCE,
             INVALID_TIME,
-            NULL_RIDES
+            NULL_RIDES,
+            INVALID_USER_ID
         }
 
         ExceptionType type;

@@ -5,6 +5,7 @@ namespace CabInvoiceGenerator_TDD
 {
     public class InvoiceGenerator
     {
+        private RideRepository rideRepository;
         private readonly double MINIMUM_COST_PER_KM = 10;
         private readonly int COST_PER_MINUTE = 1;
         private readonly double MINIMUM_FARE = 5;
@@ -47,6 +48,21 @@ namespace CabInvoiceGenerator_TDD
                     throw new CabInvoiceException(CabInvoiceException.ExceptionType.NULL_RIDES, "rides are null");
             }
             return new InvoiceSummary(rides.Length, totalFare);
+        }
+        public InvoiceSummary GetInvoiceSummary(String userId)
+        {
+            try
+            {
+                return this.CalculateFare(rideRepository.GetRides(userId));
+            }
+            catch (CabInvoiceException)
+            {
+                throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_USER_ID, "Invalid user id");
+            }
+        }
+        public void AddRides(string userId, Ride[] rides)
+        {
+            rideRepository.AddRide(userId, rides);
         }
     }    
 }
