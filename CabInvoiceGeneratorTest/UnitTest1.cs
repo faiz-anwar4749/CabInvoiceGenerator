@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using CabInvoiceGenerator_TDD;
+using System;
+
 namespace CabInvoiceGeneratorTest
 {
     public class Tests
@@ -13,10 +15,10 @@ namespace CabInvoiceGeneratorTest
         public void GivenDistanceAndTime_CalculateFareMethodShould_ReturnTotalFare()
         {
             InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
-            double distance = 10;
+            double distance = 20;
             int time = 50;
             double actualFare = invoiceGenerator.CalculateFare(distance, time);
-            double expectedFare = 150;
+            double expectedFare = 250;
             Assert.AreEqual(expectedFare, actualFare);
         }
         [Test]
@@ -28,6 +30,21 @@ namespace CabInvoiceGeneratorTest
             double actualFare = invoiceGenerator.CalculateFare(distance, time);
             double expectedFare = 5;
             Assert.AreEqual(expectedFare, actualFare);
+        }
+        [Test]
+        public void GivenMultipleRideShouldReturnInvoiceSummary()
+        {
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            Ride[] rides =
+            {
+                new Ride(2.0, 5),
+                new Ride(0.1, 5),
+                new Ride(3.0, 6)
+            };
+            InvoiceSummary summary = invoiceGenerator.CalculateFare(rides);
+
+            InvoiceSummary expectedSummary = new InvoiceSummary(3, 67.0);
+            Assert.AreEqual(summary, expectedSummary);
         }
     }
 }
