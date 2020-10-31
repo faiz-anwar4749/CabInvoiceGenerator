@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace CabInvoiceGenerator_TDD
 {
     class Program
